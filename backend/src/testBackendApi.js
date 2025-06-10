@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const API_URL = 'http://localhost:3001/api';
-const TEST_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImlhdCI6MTc0OTUwNjU3OSwiZXhwIjoxNzQ5NTEwMTc5fQ.tNsPM57Ffu4zvGCIakqlx05N_M_4v470ylXMwIHjqm4'; // Replace with a valid JWT token
+const API_URL = 'https://inf124project.onrender.com/api';
+const TEST_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImlhdCI6MTc0OTUzMzQ5MCwiZXhwIjoxNzQ5NTM3MDkwfQ.kyYcPh90yER5qZduTndtqvUVf__ogEU8rVS6sQUb-W0'; // Replace with a valid JWT token
 
 async function testBackendApi() {
   console.log('Testing Backend API Integration...\n');
