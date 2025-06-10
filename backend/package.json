@@ -1,0 +1,39 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Inf124 project backend",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-db": "node src/utils/testConnection.js",
+    "test-direct": "node src/utils/testDirectConnection.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jalenfu/inf124project.git"
+  },
+  "author": "Jalen Fu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jalenfu/inf124project/issues"
+  },
+  "homepage": "https://github.com/jalenfu/inf124project#readme",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mssql": "^10.0.1",
+    "sequelize": "^6.33.0",
+    "tedious": "^16.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

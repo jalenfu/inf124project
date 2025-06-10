@@ -1,0 +1,157 @@
+.applications-container {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.applications-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.applications-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #2196f3;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #f0f0f0;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+}
+
+.applications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.application-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.application-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.application-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.application-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.application-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.detail-item {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.detail-item strong {
+  color: #333;
+  margin-right: 4px;
+}
+
+.application-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.application-actions button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+/* Modal styles */
+.modal-content {
+  border-radius: 12px;
+}
+
+.modal-header {
+  border-bottom: 1px solid #eee;
+  padding: 16px 20px;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  border-top: 1px solid #eee;
+  padding: 16px 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .applications-container {
+    padding: 12px;
+  }
+
+  .applications-header {
+    margin-bottom: 16px;
+  }
+
+  .applications-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .application-card {
+    padding: 12px;
+  }
+
+  .application-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .detail-item {
+    font-size: 0.9rem;
+  }
+
+  .application-actions {
+    flex-direction: column;
+  }
+
+  .application-actions button {
+    width: 100%;
+  }
+} 

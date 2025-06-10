@@ -1,0 +1,52 @@
+.profile-picture-selector {
+  margin: 20px 0;
+}
+
+.profile-picture-selector h3 {
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.picture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.picture-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.picture-option:hover {
+  background-color: #f0f0f0;
+}
+
+.picture-option.selected {
+  background-color: #e3f2fd;
+  border: 2px solid #2196f3;
+}
+
+.profile-picture-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.picture-option.selected .profile-picture-preview {
+  border-color: #2196f3;
+}
+
+.picture-option span {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+} 
