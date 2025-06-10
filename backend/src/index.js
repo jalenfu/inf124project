@@ -1,4 +1,8 @@
-require('dotenv').config();
+// Load environment variables based on NODE_ENV
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+});
+
 const express = require('express');
 const cors = require('cors');
 const { connectDB } = require('./config/database');

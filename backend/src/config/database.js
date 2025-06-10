@@ -3,15 +3,15 @@ const sql = require('mssql');
 // Log the environment variables being used
 console.log('Database Configuration:', {
   host: process.env.DB_HOST || '',
-  database: process.env.DB_NAME || 'master',
-  user: 'inf124user',
+  database: process.env.DB_NAME || 'inf124',
+  user: process.env.DB_USER || '',
   port: 1433
 });
 
 const config = {
-  user: 'inf124user',
-  password: 'password',
-  server: 'localhost',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_HOST,
   database: 'inf124',
   port: 1433,
   options: {

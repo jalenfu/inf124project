@@ -4,8 +4,7 @@ require('dotenv').config();
 const config = {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    server: process.env.DB_HOST,
-    port: 1433, // Default SQL Server port
+    server: process.env.DB_HOST, // Default SQL Server port
     options: {
         encrypt: true,
         trustServerCertificate: true
@@ -15,7 +14,7 @@ const config = {
 async function testConnection() {
     try {
         console.log('Attempting to connect to SQL Server...');
-        console.log(`Connection details: Server=${config.server}:${config.port}, User=${config.user}`);
+        console.log(`Connection details: Server=${config.server}, User=${config.user}`);
         
         await sql.connect(config);
         console.log('Successfully connected to SQL Server!');
