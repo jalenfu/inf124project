@@ -30,8 +30,19 @@ app.use(cors({
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  if (err.message === 'Not allowed by CORS') {
+    return res.status(403).json({ message: 'CORS error: ' + err.message });
+  }
+  res.status(500).json({ message: 'Internal server error' });
+});
 
 // Middleware
 app.use(express.json());

@@ -1,9 +1,10 @@
-const { sql } = require('../config/database');
+const { getPool } = require('../config/database');
 
 // Create the Users table if it doesn't exist
 async function createUsersTable() {
   try {
-    await sql.query`
+    const pool = getPool();
+    await pool.request().query(`
       IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Users' and xtype='U')
       CREATE TABLE Users (
         id INT IDENTITY(1,1) PRIMARY KEY,
@@ -19,7 +20,7 @@ async function createUsersTable() {
         createdAt DATETIME DEFAULT GETDATE(),
         updatedAt DATETIME DEFAULT GETDATE()
       )
-    `;
+    `);
     console.log('Users table checked/created successfully');
   } catch (err) {
     console.error('Error creating Users table:', err);
@@ -31,9 +32,10 @@ async function createUsersTable() {
 const User = {
   async findById(id) {
     try {
-      const result = await sql.query`
-        SELECT * FROM Users WHERE id = ${id}
-      `;
+      const pool = getPool();
+      const result = await pool.request()
+        .input('id', id)
+        .query('SELECT * FROM Users WHERE id = @id');
       return result.recordset[0];
     } catch (err) {
       console.error('Error finding user by id:', err);
@@ -43,9 +45,10 @@ const User = {
 
   async findByUsername(username) {
     try {
-      const result = await sql.query`
-        SELECT * FROM Users WHERE username = ${username}
-      `;
+      const pool = getPool();
+      const result = await pool.request()
+        .input('username', username)
+        .query('SELECT * FROM Users WHERE username = @username');
       return result.recordset[0];
     } catch (err) {
       console.error('Error finding user by username:', err);
@@ -55,9 +58,10 @@ const User = {
 
   async findByEmail(email) {
     try {
-      const result = await sql.query`
-        SELECT * FROM Users WHERE email = ${email}
-      `;
+      const pool = getPool();
+      const result = await pool.request()
+        .input('email', email)
+        .query('SELECT * FROM Users WHERE email = @email');
       return result.recordset[0];
     } catch (err) {
       console.error('Error finding user by email:', err);
@@ -67,11 +71,19 @@ const User = {
 
   async create(userData) {
     try {
-      const result = await sql.query`
-        INSERT INTO Users (username, firstName, lastName, password, email, role)
-        OUTPUT INSERTED.*
-        VALUES (${userData.username}, ${userData.firstName}, ${userData.lastName}, ${userData.password}, ${userData.email}, ${userData.role || 'user'})
-      `;
+      const pool = getPool();
+      const result = await pool.request()
+        .input('username', userData.username)
+        .input('firstName', userData.firstName)
+        .input('lastName', userData.lastName)
+        .input('password', userData.password)
+        .input('email', userData.email)
+        .input('role', userData.role || 'user')
+        .query(`
+          INSERT INTO Users (username, firstName, lastName, password, email, role)
+          OUTPUT INSERTED.*
+          VALUES (@username, @firstName, @lastName, @password, @email, @role)
+        `);
       return result.recordset[0];
     } catch (err) {
       console.error('Error creating user:', err);
@@ -81,23 +93,24 @@ const User = {
 
   async update(id, userData) {
     try {
+      const pool = getPool();
       let query = 'UPDATE Users SET ';
       const updates = [];
-      const params = [];
+      const request = pool.request();
 
       if (userData.preferred_location !== undefined) {
         updates.push('preferred_location = @preferred_location');
-        params.push({ name: 'preferred_location', value: userData.preferred_location });
+        request.input('preferred_location', userData.preferred_location);
       }
 
       if (userData.preferred_industry !== undefined) {
         updates.push('preferred_industry = @preferred_industry');
-        params.push({ name: 'preferred_industry', value: userData.preferred_industry });
+        request.input('preferred_industry', userData.preferred_industry);
       }
 
       if (userData.profile_picture !== undefined) {
         updates.push('profile_picture = @profile_picture');
-        params.push({ name: 'profile_picture', value: userData.profile_picture });
+        request.input('profile_picture', userData.profile_picture);
       }
 
       if (updates.length === 0) {
@@ -105,12 +118,7 @@ const User = {
       }
 
       query += updates.join(', ') + ', updatedAt = GETDATE() OUTPUT INSERTED.* WHERE id = @id';
-      params.push({ name: 'id', value: id });
-
-      const request = new sql.Request();
-      params.forEach(param => {
-        request.input(param.name, param.value);
-      });
+      request.input('id', id);
 
       const result = await request.query(query);
       return result.recordset[0];
@@ -122,9 +130,10 @@ const User = {
 
   async delete(id) {
     try {
-      await sql.query`
-        DELETE FROM Users WHERE id = ${id}
-      `;
+      const pool = getPool();
+      await pool.request()
+        .input('id', id)
+        .query('DELETE FROM Users WHERE id = @id');
       return true;
     } catch (err) {
       console.error('Error deleting user:', err);

@@ -20,10 +20,12 @@ const config = {
   }
 };
 
+let pool;
+
 async function connectDB() {
   try {
     console.log('Attempting to connect to SQL Server...');
-    const pool = await sql.connect(config);
+    pool = await sql.connect(config);
     console.log('Connected to SQL Server database successfully');
     return pool;
   } catch (err) {
@@ -43,4 +45,15 @@ async function connectDB() {
   }
 }
 
-module.exports = { connectDB, sql }; 
+function getPool() {
+  if (!pool) {
+    throw new Error('Database connection not initialized');
+  }
+  return pool;
+}
+
+module.exports = {
+  connectDB,
+  getPool,
+  sql
+}; 
