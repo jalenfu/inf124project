@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/api';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const jobService = {
   async searchJobs(query = '', location = '', page = 1, radius = 25) {
